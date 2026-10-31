@@ -23,7 +23,7 @@ build against the local hixxy checkout (`~/Developer/hixxy`) and its prebuilt SD
 ```bash
 cmake --preset dev && cmake --build --preset dev   # Homebrew clang, Debug, -Werror, hardening
 ctest --preset dev                                 # all tests
-build/dev/tests/test_smoke -tc="<test name>"       # one doctest executable, filtered to a case
+build/dev/tests/ui/test_ui -tc="<test name>"       # one doctest executable, filtered to a case
 build/dev/src/app/gitrose                          # run the app
 cmake --build --preset dev --target format-check   # clang-format check (`format` fixes in place)
 cmake --preset dev-tidy && cmake --build --preset dev-tidy   # build with clang-tidy as errors
@@ -39,8 +39,8 @@ cmake --preset dev-asan && cmake --build --preset dev-asan && ctest --preset dev
   `tests/CMakeLists.txt` with `gitrose_add_test(<name> SOURCES ... LIBS ...)` (doctest, runner in
   `tests/test_main.cpp`, `src/` and `tests/` on the include path).
 - `src/<module>/`: a static library per module; the executable is `src/app/`. `tests/<module>/`
-  mirrors it. `tests/smoke_test.cpp` is a placeholder until real tests exist (the test presets
-  fail when there are none).
+  mirrors it, one test executable per module (`test_ui`; hixxy's headless `UiTest` harness comes
+  from `hixxy::testing`).
 
 ## hixxy
 

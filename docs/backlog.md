@@ -15,7 +15,7 @@ are in a file of their own in `backlog/`, an item a heading there with its detai
 | Section | Prefix | Next ID |
 |---|---|---|
 | [High priority](backlog/00-high-priority.md) | `HIGH` | HIGH-1 |
-| [With the first change that needs it](backlog/01-first-need.md) | `NEXT` | NEXT-1 |
+| [With the first change that needs it](backlog/01-first-need.md) | `NEXT` | NEXT-2 |
 | [Later](backlog/09-later.md) | `LTR` | LTR-1 |
 
 ## [High priority](backlog/00-high-priority.md)
@@ -24,7 +24,7 @@ None at the moment.
 
 ## [With the first change that needs it](backlog/01-first-need.md)
 
-None at the moment.
+- NEXT-1: Repository tabs need close and add controls
 
 ## [Later](backlog/09-later.md)
 

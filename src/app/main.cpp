@@ -2,24 +2,25 @@
 
 #include <hixxy/hixxy.hpp>
 
+#include "ui/main_window.hpp"
+#include "ui/style.hpp"
+
 using namespace hixxy;
-
-namespace {
-
-/// The size of the window's content area when gitrose starts, in points.
-constexpr auto initial_window_size = Size { 1280.0F, 800.0F };
-
-} // namespace
+using namespace gitrose::ui;
 
 auto main() -> int {
     auto app = Application({ .name = "gitrose" });
-    auto window = app.create_window({ .title = "gitrose", .size = initial_window_size });
+    apply_style(app);
+
+    auto window = app.create_window({
+        .title = "gitrose",
+        .size = MainWindow::initial_size,
+        .min_size = MainWindow::minimum_size,
+    });
     if (!window) {
         return 1; // the error has been logged
     }
 
-    auto& root = (*window)->set_content<Column>().padding(24.0F).spacing(12.0F);
-    root.add<Label>("gitrose", TextRole::Headline);
-
+    MainWindow::build(**window);
     return app.run();
 }

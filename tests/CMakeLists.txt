@@ -19,4 +19,4 @@ function(gitrose_add_test name)
     set_tests_properties(${name} PROPERTIES TIMEOUT 120)
 endfunction()
 
-gitrose_add_test(test_smoke SOURCES smoke_test.cpp)
+add_subdirectory(ui)

@@ -1,0 +1,11 @@
+gitrose_add_test(test_ui
+    SOURCES
+    main_window_test.cpp
+    sample_repository_test.cpp
+    sidebar_test.cpp
+    splitter_test.cpp
+    style_test.cpp
+    toolbar_view_test.cpp
+    LIBS
+    gitrose_ui
+    hixxy::testing)
