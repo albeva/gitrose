@@ -1,0 +1,38 @@
+# gitrose code style (same as hixxy) — checked by `cmake --build --preset dev --target format-check`
+---
+BasedOnStyle: WebKit
+Language: Cpp
+Standard: c++20
+AlignAfterOpenBracket: false
+AlignOperands: AlignAfterOperator
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: Empty
+ConstructorInitializerIndentWidth: 0
+FixNamespaceComments: true
+AlignTrailingComments: true
+AlignConsecutiveBitFields: true
+SpaceInEmptyBraces: Never
+BreakBeforeCloseBracketBracedList: true
+BreakBeforeCloseBracketFunction: true
+BreakBeforeCloseBracketIf: true
+BreakBeforeCloseBracketLoop: true
+BreakBeforeCloseBracketSwitch: true
+BreakBeforeTemplateCloser: true
+BreakBeforeTernaryOperators: true
+SpaceAfterTemplateKeyword: false
+SortIncludes: CaseSensitive
+IncludeCategories:
+  # 1. C++ standard library
+  - Regex: '^<[a-z_]+>$'
+    Priority: 1
+  # 2. Third-party libraries
+  - Regex: '^<(SDL3|doctest)/'
+    Priority: 2
+  # 3. hixxy
+  - Regex: '^<hixxy/'
+    Priority: 3
+  # 4. gitrose headers
+  - Regex: '^"'
+    Priority: 4
+  - Regex: '.*'
+    Priority: 5

@@ -1,0 +1,23 @@
+# Build trees
+/build/
+/out/
+/cmake-build-*/
+
+# Machine-specific CMake presets (see CMakeUserPresets.example.json)
+CMakeUserPresets.json
+
+# Machine-specific Claude Code settings and agent worktrees; the rest of .claude/ is shared
+.claude/settings.local.json
+.claude/worktrees/
+CLAUDE.local.md
+
+# Tooling caches
+/.cache
+compile_commands.json
+.clangd
+
+# IDEs / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store

@@ -1,0 +1,83 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "hixxy-local",
+      "hidden": true,
+      "description": "Build against the local hixxy checkout's working tree instead of the pinned commit.",
+      "cacheVariables": {
+        "FETCHCONTENT_SOURCE_DIR_HIXXY": "$env{HOME}/Developer/hixxy"
+      }
+    },
+    {
+      "name": "local-deps",
+      "hidden": true,
+      "description": "Reuse the SDL3 that hixxy's tools/bootstrap-deps.sh built (instead of fetching SDL per build directory).",
+      "cacheVariables": {
+        "CMAKE_PREFIX_PATH": "$env{HOME}/Developer/hixxy/.cache/sdl3"
+      }
+    },
+    {
+      "name": "macos-minimum",
+      "hidden": true,
+      "description": "The oldest supported macOS (hixxy's minimum): APIs newer than macOS 26 fail to compile. Ignored on other platforms.",
+      "cacheVariables": {
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "26.0"
+      }
+    },
+    {
+      "name": "homebrew-llvm",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "/opt/homebrew/opt/llvm/bin/clang",
+        "CMAKE_CXX_COMPILER": "/opt/homebrew/opt/llvm/bin/clang++",
+        "GITROSE_CLANG_FORMAT_EXE": "/opt/homebrew/opt/llvm/bin/clang-format",
+        "GITROSE_CLANG_TIDY_EXE": "/opt/homebrew/opt/llvm/bin/clang-tidy"
+      }
+    },
+    {
+      "name": "dev",
+      "displayName": "Dev: Homebrew LLVM, Debug, local hixxy",
+      "inherits": ["hixxy-local", "local-deps", "macos-minimum", "homebrew-llvm", "debug"]
+    },
+    {
+      "name": "dev-asan",
+      "displayName": "Dev: ASan+UBSan, local hixxy",
+      "inherits": ["hixxy-local", "local-deps", "macos-minimum", "homebrew-llvm", "asan"]
+    },
+    {
+      "name": "dev-tsan",
+      "displayName": "Dev: TSan, local hixxy",
+      "inherits": ["hixxy-local", "local-deps", "macos-minimum", "homebrew-llvm", "tsan"]
+    },
+    {
+      "name": "dev-tidy",
+      "displayName": "Dev: clang-tidy, local hixxy",
+      "inherits": ["hixxy-local", "local-deps", "macos-minimum", "homebrew-llvm", "tidy"]
+    },
+    {
+      "name": "dev-release",
+      "displayName": "Dev: Release, local hixxy",
+      "inherits": ["hixxy-local", "local-deps", "macos-minimum", "homebrew-llvm", "release"]
+    },
+    {
+      "name": "dev-pinned",
+      "displayName": "Dev: Debug, hixxy at the pinned commit",
+      "inherits": ["local-deps", "macos-minimum", "homebrew-llvm", "debug"]
+    }
+  ],
+  "buildPresets": [
+    { "name": "dev", "configurePreset": "dev" },
+    { "name": "dev-asan", "configurePreset": "dev-asan" },
+    { "name": "dev-tsan", "configurePreset": "dev-tsan" },
+    { "name": "dev-tidy", "configurePreset": "dev-tidy" },
+    { "name": "dev-release", "configurePreset": "dev-release" },
+    { "name": "dev-pinned", "configurePreset": "dev-pinned" }
+  ],
+  "testPresets": [
+    { "name": "dev", "inherits": "base", "configurePreset": "dev" },
+    { "name": "dev-asan", "inherits": "base", "configurePreset": "dev-asan" },
+    { "name": "dev-tsan", "inherits": "base", "configurePreset": "dev-tsan" },
+    { "name": "dev-pinned", "inherits": "base", "configurePreset": "dev-pinned" }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 28, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/build/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug (strict)",
+      "description": "Debug build, warnings as errors, stdlib hardening",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "GITROSE_WARNINGS_AS_ERRORS": "ON"
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Release",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "GITROSE_WARNINGS_AS_ERRORS": "ON"
+      }
+    },
+    {
+      "name": "relwithdebinfo",
+      "displayName": "RelWithDebInfo",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "asan",
+      "displayName": "Debug + AddressSanitizer + UBSan",
+      "inherits": "debug",
+      "cacheVariables": {
+        "GITROSE_SANITIZERS": "address;undefined"
+      }
+    },
+    {
+      "name": "tsan",
+      "displayName": "Debug + ThreadSanitizer",
+      "inherits": "debug",
+      "cacheVariables": {
+        "GITROSE_SANITIZERS": "thread"
+      }
+    },
+    {
+      "name": "tidy",
+      "displayName": "Debug + clang-tidy",
+      "inherits": "debug",
+      "cacheVariables": {
+        "GITROSE_ENABLE_CLANG_TIDY": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug", "configurePreset": "debug" },
+    { "name": "release", "configurePreset": "release" },
+    { "name": "relwithdebinfo", "configurePreset": "relwithdebinfo" },
+    { "name": "asan", "configurePreset": "asan" },
+    { "name": "tsan", "configurePreset": "tsan" },
+    { "name": "tidy", "configurePreset": "tidy" }
+  ],
+  "testPresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error", "stopOnFailure": false, "jobs": 8, "timeout": 300 }
+    },
+    { "name": "debug", "inherits": "base", "configurePreset": "debug" },
+    { "name": "release", "inherits": "base", "configurePreset": "release" },
+    { "name": "asan", "inherits": "base", "configurePreset": "asan" },
+    { "name": "tsan", "inherits": "base", "configurePreset": "tsan" }
+  ]
+}
